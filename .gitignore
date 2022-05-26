@@ -1,0 +1,7 @@
+lib/__pycache__/
+__pycache__/
+runs/
+temp.ipynb
+env
+.data/
+checkpoints

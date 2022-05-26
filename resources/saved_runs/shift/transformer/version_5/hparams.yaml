@@ -1,0 +1,7 @@
+dropout: 0.1
+hid_dim: 32
+input_dim: 1
+nhead: 8
+num_layers: 5
+output_dim: 1
+src_length: 128

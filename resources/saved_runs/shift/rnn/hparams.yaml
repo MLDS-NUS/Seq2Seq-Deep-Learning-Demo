@@ -1,0 +1,4 @@
+hid_dim: 256
+input_dim: 1
+num_layers: 2
+output_dim: 1
