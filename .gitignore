@@ -5,3 +5,4 @@ temp.ipynb
 env
 .data/
 checkpoints
+.ipynb_checkpoints/
