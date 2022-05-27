@@ -88,9 +88,11 @@ class Seq2SeqModel(pl.LightningModule):
         return validloss
 
     def predict(self, x):
-        x = torch.tensor(x, dtype=torch.float32)
-        pred = self(x)
-        return pred.detach().cpu().numpy()
+        self.eval()
+        with torch.no_grad():
+            x = torch.tensor(x, dtype=torch.float32)
+            pred = self(x)
+            return pred.detach().cpu().numpy()
 
 
 class RNNModel(Seq2SeqModel):
@@ -242,7 +244,9 @@ class TransformerTextGeneration(Seq2SeqModel):
             for t, char in enumerate(sentence):
                 x_pred[0, t, self.char_indices[char]] = 1.
 
-            preds = self(torch.tensor(x_pred, dtype=torch.float32), predicting=True)[0].detach().cpu().numpy()
+            self.eval()
+            with torch.no_grad():
+                preds = self(torch.tensor(x_pred, dtype=torch.float32), predicting=True)[0].detach().cpu().numpy()
             # preds = softmax(preds)
         
             # next_index = sample(preds, diversity)
@@ -369,8 +373,9 @@ class RNNTextGeneration(Seq2SeqModel):
             x_pred = np.zeros((1, len(sentence), len(self.chars)))
             for t, char in enumerate(sentence):
                 x_pred[0, t, self.char_indices[char]] = 1.
-
-            preds = self(torch.tensor(x_pred, dtype=torch.float32))[0].detach().cpu().numpy()
+            self.eval()
+            with torch.no_grad():
+                preds = self(torch.tensor(x_pred, dtype=torch.float32))[0].detach().cpu().numpy()
             preds = softmax(preds)+1e-7
             next_index = sample(preds, diversity)
             
@@ -435,8 +440,9 @@ class RNNWordGeneration(RNNTextGeneration):
             x_pred = np.zeros((1, len(sentence), len(self.chars)+1))
             for t, char in enumerate(sentence.split(' ')):
                 x_pred[0, t, self.char_indices[char]] = 1.
-
-            preds = self(torch.tensor(x_pred, dtype=torch.float32))[0].detach().cpu().numpy()
+            self.eval()
+            with torch.no_grad():
+                preds = self(torch.tensor(x_pred, dtype=torch.float32))[0].detach().cpu().numpy()
             preds = softmax(preds)
             next_index = sample(preds, diversity)
 
