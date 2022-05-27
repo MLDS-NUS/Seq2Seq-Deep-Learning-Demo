@@ -1,0 +1,1 @@
+![](resources/assets/seq2seq_preview.png)
