@@ -22,7 +22,7 @@ Now, install the required packages.
   $pip install -r full_requirements.txt
   ```
 
-The demo can be found in `seq2seq.ipynb`.
+A preview of the demo can be found in `seq2seq_preview.md`. For better experiences with interactive features, it is recommended to run `seq2seq.ipynb` from Visual Studio Code.
 
 ## Contributors
 
